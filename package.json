@@ -1,0 +1,12 @@
+{
+  "name": "cicd-pipeline-demo",
+  "version": "1.0.0",
+  "description": "A simple Node.js app deployed via Azure DevOps CI/CD pipeline",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "4.21.2"
+  }
+}
