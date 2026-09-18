@@ -1,0 +1,62 @@
+# Run the pipeline on every push to main
+trigger:
+- main
+
+stages:
+# Stage 1: Build the app and create a deployable artifact
+- stage: Build
+  displayName: 'Build stage'
+  jobs:
+  - job: Build
+    displayName: 'Build job'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    # Install the correct Node.js version
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '24.x'
+      displayName: 'Install Node.js'
+
+    # Pull in Express and other dependencies
+    - script: npm install
+      displayName: 'Install dependencies'
+
+    # Zip the project files for deployment
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+      displayName: 'Archive files'
+
+    # Upload the zip as a pipeline artifact
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+      artifact: drop
+      displayName: 'Publish artifact'
+      # Stage 2: Deploy the artifact to Azure App Service
+- stage: Deploy
+  displayName: 'Deploy stage'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    displayName: 'Deploy to Azure App Service'
+    environment: 'production'
+    pool:
+      vmImage: 'ubuntu-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          # Use the service connection to deploy to App Service
+          - task: AzureWebApp@1
+            inputs:
+              azureSubscription: 'azure-connection'
+              appType: 'webAppLinux'
+              appName: 'your unique app name e.g. cicd-demo-yourname'
+              package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+              runtimeStack: 'NODE|24-LTS'
+            displayName: 'Deploy to Azure App Service'
