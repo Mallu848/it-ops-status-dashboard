@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ops Dashboard — Auto Approve Platform</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar-title">
+        <h1>Auto Approve Platform</h1>
+        <p class="subtitle">Internal systems &amp; support status</p>
+      </div>
+      <div class="topbar-meta">
+        <div class="overall-pill" id="overall-pill">
+          <span class="dot" id="overall-dot"></span>
+          <span id="overall-text">Loading…</span>
+        </div>
+        <div class="last-updated">Last checked <span id="last-updated">—</span></div>
+      </div>
+    </header>
+
+    <section class="systems">
+      <h2>Systems</h2>
+      <div class="systems-grid" id="systems-grid"></div>
+    </section>
+
+    <div class="columns">
+      <section class="tickets">
+        <div class="section-head">
+          <h2>Support queue</h2>
+          <span class="count" id="ticket-count">—</span>
+        </div>
+        <table class="ticket-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Priority</th>
+              <th>Title</th>
+              <th>Assignee</th>
+              <th>Opened</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="ticket-body"></tbody>
+        </table>
+      </section>
+
+      <section class="incidents">
+        <div class="section-head">
+          <h2>Recent incidents</h2>
+          <span class="count" id="incident-count">—</span>
+        </div>
+        <ol class="timeline" id="incident-timeline"></ol>
+      </section>
+    </div>
+
+    <footer class="footnote">
+      Mock data · deployed via an Azure DevOps CI/CD pipeline with a staging approval gate
+    </footer>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
