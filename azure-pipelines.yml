@@ -56,7 +56,7 @@ stages:
             inputs:
               azureSubscription: 'azure-connection'
               appType: 'webAppLinux'
-              appName: 'your-app-name-here'
+              appName: 'cicd-demo-rantony'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               runtimeStack: 'NODE|24-LTS'
             displayName: 'Deploy to Staging'
