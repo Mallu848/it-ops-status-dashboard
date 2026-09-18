@@ -56,7 +56,7 @@ stages:
             inputs:
               azureSubscription: 'azure-connection'
               appType: 'webAppLinux'
-              appName: 'your unique app name e.g. cicd-demo-yourname'
+              appName: 'cicd-demo-rantony'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               runtimeStack: 'NODE|24-LTS'
             displayName: 'Deploy to Azure App Service'
