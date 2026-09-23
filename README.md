@@ -43,7 +43,7 @@ Node.js, Express, Azure DevOps Pipelines (YAML), Azure App Service, Azure CLI, G
 
 ## Live demo
 
-- **Live app:** `https://<your-app-name>.azurewebsites.net`
+- **Live app:** `https://cicd-demo-rantony.azurewebsites.net`
 - **Demo recording:** *(add your Loom/YouTube link here)*
 
 ## What I'd add next
